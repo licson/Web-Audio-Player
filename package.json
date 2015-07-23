@@ -1,0 +1,28 @@
+{
+  "name": "AudioPlayer",
+  "version": "0.0.1",
+  "description": "A little web-based audio player",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "audio",
+    "player",
+    "web"
+  ],
+  "author": "Licson",
+  "license": "MIT",
+  "dependencies": {
+    "express": "~4.13.1",
+    "express-range": "~2.0.1"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/licson0729/Web-Audio-Player.git"
+  },
+  "bugs": {
+    "url": "https://github.com/licson0729/Web-Audio-Player/issues"
+  }
+}

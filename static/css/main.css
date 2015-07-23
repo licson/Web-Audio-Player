@@ -1,0 +1,75 @@
+.header-panel {
+	height: 144px;
+	position: fixed;
+	width: 100%;
+	z-index: 3;
+	background-color: #009587;
+	color: #fff;
+}
+
+.main-ui {
+	margin-top: 180px;
+	position: absolute;
+	width: 100%;
+}
+
+.pls-container {
+	z-index: 2;
+	position: relative;
+}
+
+.options-btn {
+	margin-top: 115px;
+	margin-left: 50px;
+	z-index: 4;
+}
+
+.btn-default {
+	background-color: #fff !important;
+}
+
+.playback-ui {
+	display: none;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+.togglebutton label {
+	margin: 20px 15px 15px;
+	width: 70%;
+}
+
+.togglebutton .toggle {
+	float: right;
+}
+
+#control h1 {
+	margin-top: 50px;
+	width: 100%;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.progress {
+	height: 8px;
+}
+
+.no-transition {
+	transition: none !important;
+	-webkit-transition: none !important;
+	-moz-transition: none !important;
+	-o-transition: none !important;
+}
+
+@media all and (max-width: 992px) {
+	.options-btn {
+		margin-top: 0;
+		margin-left: 0;
+		position: fixed;
+		bottom: 20px;
+		right: 20px;
+	}
+}

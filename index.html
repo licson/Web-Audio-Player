@@ -1,0 +1,82 @@
+<!doctype html>
+<html>
+	<head>
+		<title>Web Audio Player</title>
+		<meta charset="utf-8" />
+		<link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.min.css" />
+		<link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.3.0/css/roboto.min.css" />
+		<link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.3.0/css/material.min.css" />
+		<link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.3.0/css/ripples.min.css" />
+		<link type="text/css" rel="stylesheet" href="/css/main.css" />
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/js/bootstrap.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.3.0/js/ripples.min.js"></script>
+		<script src="/js/arrive.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.3.0/js/material.min.js"></script>
+		<script src="/js/main.js"></script>
+	</head>
+	<body>
+		<div class="header-panel shadow-z-2">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-md-1">
+						<div class="options-btn">
+							<a href="#" class="btn btn-default btn-fab btn-raised mdi-action-settings" id="shuffle" data-toggle="modal" data-target="#settings-dialog"></a>
+						</div>
+					</div>
+					<div class="col-md-8 col-md-offset-1" id="control">
+						<h1>Choose a song...</h1>
+						<div class="playback-ui">
+							<div class="progress">
+								<div class="progress-bar progress-bar-info no-transition" style="width: 0"></div>
+							</div>
+							<span class="label label-default"></span>
+							<a href="#" id="control-prev" class="btn btn-default btn-xs mdi-av-skip-previous"></a>
+							<a href="#" id="control-playpause" class="btn btn-default btn-xs mdi-av-pause"></a>
+							<a href="#" id="control-stop" class="btn btn-default btn-xs mdi-av-stop"></a>
+							<a href="#" id="control-next" class="btn btn-default btn-xs mdi-av-skip-next"></a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="container-fluid main-ui">
+			<div class="row">
+				<div class="col-md-8 col-md-offset-2">
+					<div class="well well-lg pls-container" id="playlist">
+						<ul class="nav nav-pills nav-stacked">
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	<div id="settings-dialog" class="modal fade" tabindex="-1">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+					<h4 class="modal-title">Configure player</h4>
+				</div>
+				<div class="modal-body">
+					<div class="togglebutton">
+						<label>
+							Convert media files
+							<input type="checkbox" name="convertMedia" />
+							<p>Convert non-MP3 files on the fly for web playback.</p>
+						</label>
+					</div>
+					<div class="togglebutton">
+						<label>
+							Crossfade
+							<input type="checkbox" name="crossfade" />
+						</label>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button class="btn btn-primary" data-dismiss="modal">Finish</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	</body>
+</html>
