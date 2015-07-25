@@ -180,6 +180,8 @@ $(function(){
 		else {
 			resetUI();
 		}
+
+		if(crossfadeTimer) clearTimeout(crossfadeTimer);
 	});
 
 	$('#control-next').click(function(e){
@@ -194,6 +196,8 @@ $(function(){
 		else {
 			resetUI();
 		}
+
+		if(crossfadeTimer) clearTimeout(crossfadeTimer);
 	});
 
 	$(audio).on('timeupdate', function(e){
