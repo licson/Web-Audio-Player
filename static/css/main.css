@@ -64,6 +64,10 @@
 	-o-transition: none !important;
 }
 
+.togglebutton > label > p {
+	margin-top: 10px;
+}
+
 @media all and (max-width: 992px) {
 	.options-btn {
 		margin-top: 0;
