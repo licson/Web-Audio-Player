@@ -57,6 +57,8 @@ app.get('/getList', function(req, res){
 });
 
 app.get('/data/:name', function(req, res){
+	req.params.name = req.params.name.replace('../', '');
+
 	var sendFileWithRanges = function(name){
 		var size = fs.statSync(name);
 		if(!size){
