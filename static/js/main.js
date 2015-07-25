@@ -3,6 +3,7 @@ $(function(){
 	var currentItem = null;
 	var isPlaying = false;
 	var dragging = false;
+	var crossfadeTimer = null;
 	
 	var updateUI = function(name){
 		$('.playback-ui').fadeIn(500);
@@ -37,11 +38,6 @@ $(function(){
 		currentItem = el;
 		isPlaying = true;
 		updateUI($(el).text());
-
-		if(window.localStorage.crossfade == 'true'){
-			audio.volume = 0;
-			$(audio).animate({ volume: 1 }, 2000);
-		}
 	};
 
 	var seek = function(e){
@@ -59,6 +55,13 @@ $(function(){
 
 		audio.currentTime = audio.duration * pos;
 		$('.playback-ui .progress-bar').css('width', pos * 100 + '%');
+
+		if(crossfadeTimer){
+			clearTimeout(crossfadeTimer);
+			crossfadeTimer = setTimeout(function(){
+				$(audio).animate({ volume: 0 }, 2000);
+			}, (audio.duration * (1 - pos) - 2) * 1000);
+		}
 	};
 
 	var prepareLocalStorage = function(){
@@ -134,12 +137,21 @@ $(function(){
 
 			audio.pause();
 			$(this).removeClass('mdi-av-pause').addClass('mdi-av-play-arrow');
+
+			if(crossfadeTimer) clearTimeout(crossfadeTimer);
 		}
 		else {
 			isPlaying = true;
 
 			audio.play();
 			$(this).addClass('mdi-av-pause').removeClass('mdi-av-play-arrow');
+
+			if(crossfadeTimer){
+				// Re-schedule crossfade
+				crossfadeTimer = setTimeout(function(){
+					$(audio).animate({ volume: 0 }, 2000);
+				}, (audio.duration - audio.currentTime - 2) * 1000);
+			}
 		}
 	});
 
@@ -152,6 +164,8 @@ $(function(){
 
 		audio.pause();
 		audio.currentTime = 0;
+
+		if(crossfadeTimer) clearTimeout(crossfadeTimer);
 	});
 
 	$('#control-prev').click(function(e){
@@ -187,14 +201,28 @@ $(function(){
 		$('.playback-ui .label').text(formatTime(audio.currentTime) + '/' + formatTime(audio.duration))
 	});
 
+	$(audio).on('loadedmetadata', function(){
+		if(window.localStorage.crossfade == 'true'){
+			audio.volume = 0;
+			$(audio).animate({ volume: 1 }, 2000);
+
+			crossfadeTimer = setTimeout(function(){
+				$(audio).animate({ volume: 0 }, 2000);
+			}, (audio.duration - 2) * 1000);
+		}
+	});
+
 	$(audio).on('ended', function(e){
 		$(currentItem).parent().removeClass('active');
 		var nextEl = $(currentItem).parent().next().find('a');
+
 		if(nextEl){
 			playback(nextEl);
 		}
 		else {
 			resetUI();
 		}
+
+		if(crossfadeTimer) clearTimeout(crossfadeTimer);
 	});
 });
