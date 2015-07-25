@@ -1,5 +1,6 @@
 var express = require('express');
 var range = require('express-range');
+var busboy = require('connect-busboy');
 var fs = require('fs');
 var crypto = require('crypto');
 var spawn = require('child_process').spawn;
@@ -8,6 +9,7 @@ var sha1 = function(data){ return crypto.createHash('sha1').update(data).digest(
 
 // Variables
 
+var uploadPassword = 'file';
 var supportedFormats = ['mp3', 'ogg', 'wav', 'flac', 'mp2', 'wma'];
 var tempDir = require('os').tmpdir();
 
@@ -15,6 +17,7 @@ var tempDir = require('os').tmpdir();
 
 app.use(express.static('static'));
 app.use(range({ accept: 'bytes' }));
+app.use(busboy());
 
 // Our main code
 
@@ -54,6 +57,33 @@ app.get('/getList', function(req, res){
 
 		res.json(output);
 	});
+});
+
+app.post('/upload', function(req, res){
+	if(uploadPassword !== 'file'){
+		req.pipe(req.busboy);
+		req.busboy.on('file', function (fieldname, file, filename) {
+			if(fieldname == uploadPassword){
+				var target = fs.createWriteStream(__dirname + '/data/' + filename);
+				target.on('close', function(){
+					res.write('Done.');
+				});
+
+				file.pipe(target);
+			}
+			else {
+				res.status(403).write('Unauthorized');
+				return;
+			}
+		});
+
+		req.on('end', function(){
+			res.end();
+		});
+	}
+	else {
+		res.status(403).end('You did not setup an upload passpharse.');
+	}
 });
 
 app.get('/data/:name', function(req, res){

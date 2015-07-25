@@ -22,7 +22,19 @@ Features
 1. Easy to install and use
 2. Lightweight (quite)
 3. Features Google's Material Design
-4. Automatic conversion to MP3 for web playback. No need to worry about file types!
+4. Upload music through HTTP
+5. Automatic conversion to MP3 for web playback. No need to worry about file types!
+
+HTTP Upload
+==========================
+
+In order to use the HTTP upload feature, you need to open up `index.js` and go to line 12. Change `file` into something only you would know. Then you can use `curl` to upload music files remotely. (Assume you have it installed on your computer).
+
+	curl -F '<your secret string>=@/path/to/your/music.mp3' \
+	-F '<your secret string>=@/path/to/your/anothermusic.mp3' \
+	'http://yourserver.com/upload'
+
+If successfully uploaded, it outputs `Done.` to notify you.
 
 Reminders
 ==========================
