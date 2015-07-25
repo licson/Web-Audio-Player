@@ -51,7 +51,7 @@ $(function(){
 			var x = e.pageX;
 		}
 		
-		var pos = (x - left) / width;
+		var pos = Math.min(Math.max(x - left, 0), width) / width;
 
 		audio.currentTime = audio.duration * pos;
 		$('.playback-ui .progress-bar').css('width', pos * 100 + '%');
